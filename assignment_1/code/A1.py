@@ -10,8 +10,8 @@ import shlex
 #end if
 
 #%%
-N = 8
-xn = np.array([1,2,3,4,2,1,0,0])
+N = 6
+xn = np.array([1,2,3,4,2,1])
 hn = np.zeros(N)
 for i in range(N):
     hn[i] += (-0.5)**i
@@ -20,11 +20,6 @@ for i in range(N):
 #%%
 def DTFT(x, inverse=-1):
     M = x.shape[0]
-    if M & (M-1) != 0:
-        tmp = 1 << (M-1).bit_length()
-        x = np.pad(x, [0, tmp - M], mode='constant')
-        M = x.shape[0]
-
     W = np.zeros((M, M), dtype=complex)
 
     for n in range(M): 
@@ -32,6 +27,11 @@ def DTFT(x, inverse=-1):
             W[n][k] = np.exp(inverse * 2j * np.pi * k * n / M)
 
     return np.matmul(W, x)
+
+def IDFT(x, inverse=-1):
+    n = x.shape[0]
+
+    return (1/n)*(DTFT(x, inverse=1))
 
 def FFT(x,inverse=-1):
     n = x.shape[0]
@@ -56,19 +56,19 @@ def IFFT(X):
     return (1/n)*(FFT(X,inverse = 1))
 
 #%%
-X = FFT(xn)
+X = DTFT(xn)
 
 plt.figure(0)
 plt.stem(xn)
 plt.xlabel('$n$')
 plt.ylabel('$x(n)$')
 plt.grid()
-plt.show()
+#plt.show()
 plt.savefig('../figs/x_n.pdf')
 plt.savefig('../figs/x_n.eps')
 #subprocess.run(shlex.split("termux-open ../figs/x_n.pdf"))  #if using termex
 
-plt.figure(1,figsize=(10,4))
+plt.figure(1,figsize=(11,4))
 
 plt.subplot(1,2,1)
 plt.stem(np.abs(X))
@@ -82,7 +82,7 @@ plt.grid()
 plt.xlabel('$k$')
 plt.ylabel(r'$\angle{X(k)}$ (degrees)')
 
-plt.show()
+#plt.show()
 plt.savefig('../figs/X.pdf')
 plt.savefig('../figs/X_.eps')
 #subprocess.run(shlex.split("termux-open ../figs/X.pdf"))  #if using termex
@@ -90,18 +90,18 @@ plt.savefig('../figs/X_.eps')
 
 
 
-H = FFT(hn)
+H = DTFT(hn)
 plt.figure(2)
 plt.stem(hn)
 plt.xlabel('$n$')
 plt.ylabel('$h(n)$')
 plt.grid()
-plt.show()
+#plt.show()
 plt.savefig('../figs/h_n.pdf')
 plt.savefig('../figs/h_n.eps')
 #subprocess.run(shlex.split("termux-open ../figs/h_n.pdf"))  #if using termex
 
-plt.figure(3, figsize=(10,4))
+plt.figure(3, figsize=(11,4))
 
 plt.subplot(1,2,1)
 plt.stem(np.abs(H))
@@ -115,7 +115,7 @@ plt.grid()
 plt.xlabel('$k$')
 plt.ylabel(r'$\angle{H(k)}$ (degrees)')
 
-plt.show()
+#plt.show()
 plt.savefig('../figs/H.pdf')
 plt.savefig('../figs/H.eps')
 #subprocess.run(shlex.split("termux-open ../figs/H.pdf"))  #if using termex
@@ -123,13 +123,13 @@ plt.savefig('../figs/H.eps')
 
 #%%
 Y = H * X
-yn = IFFT(Y)
+yn = IDFT(Y)
 plt.figure(4)
 plt.stem(np.abs(yn))
 plt.xlabel('$n$')
 plt.ylabel('$y(n)$')
 plt.grid()
-plt.show()
+#plt.show()
 plt.savefig('../figs/y_n.pdf')
 plt.savefig('../figs/y_n.eps')
 #subprocess.run(shlex.split("termux-open ../figs/y_n.pdf"))  #if using termex
@@ -148,7 +148,7 @@ plt.grid()
 plt.xlabel('$k$')
 plt.ylabel(r'$\angle{Y(k)}$ (degrees)')
 
-plt.show()
+#plt.show()
 plt.savefig('../figs/Y.pdf')
 plt.savefig('../figs/Y.eps')
 #subprocess.run(shlex.split("termux-open ../figs/Y.pdf"))  #if using termex
