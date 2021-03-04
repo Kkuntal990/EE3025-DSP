@@ -2,8 +2,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-import timeit
-
 #If using termux
 import subprocess
 import shlex
@@ -84,7 +82,7 @@ plt.ylabel(r'$\angle{X(k)}$ (degrees)')
 
 #plt.show()
 plt.savefig('../figs/X.pdf')
-plt.savefig('../figs/X_.eps')
+plt.savefig('../figs/X.eps')
 #subprocess.run(shlex.split("termux-open ../figs/X.pdf"))  #if using termex
 
 
@@ -134,7 +132,7 @@ plt.savefig('../figs/y_n.pdf')
 plt.savefig('../figs/y_n.eps')
 #subprocess.run(shlex.split("termux-open ../figs/y_n.pdf"))  #if using termex
 
-plt.figure(5, figsize=(10,4))
+plt.figure(5, figsize=(11,4))
 
 plt.subplot(1,2,1)
 plt.stem(np.abs(Y))
