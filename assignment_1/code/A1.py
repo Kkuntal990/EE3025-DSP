@@ -7,8 +7,6 @@ import timeit
 #If using termux
 import subprocess
 import shlex
-from numpy.core.fromnumeric import mean, size
-from numpy.lib.function_base import average
 #end if
 
 #%%
@@ -158,43 +156,14 @@ plt.savefig('../figs/Y.eps')
 
 # %%
 
-x = np.random.random(1024)
-start_time = timeit.default_timer()
-FFT(x)
-print(timeit.default_timer() - start_time)
+# To test the time statistics
+# Make sure to use this only in an interactive python environment 
 
-def fft_time():
-    SETUP_CODE = ''' 
-x = np.random.random(1024)
-'''
-
-    TEST_CODE = ''' 
-FFT(x)'''
-
-    times = timeit.repeat(setup=SETUP_CODE,
-                          stmt=TEST_CODE,
-                          repeat=3,
-                          number=10000)
-
-    # print mean exec. time
-    print('Binary search time: {}'.format(mean(times)))
+# x = np.random.random(128)
+# %timeit DTFT(x)
+# %timeit FFT(x)
 
 
-def DTFT_time():
-    SETUP_CODE = ''' 
-x = np.random.random(1024)
-'''
-
-    TEST_CODE = ''' 
-X = DTFT_N2(x)'''
-
-    times = timeit.repeat(setup=SETUP_CODE,
-                          stmt=TEST_CODE,
-                          repeat=3,
-                          number=10000)
-
-    # print mean exec. time
-    print('Binary search time: {}'.format(mean(times)))
-
-fft_time()
-DTFT_time()
+# x = np.random.random(2048)
+# %timeit DTFT(x)
+# %timeit FFT(x)
