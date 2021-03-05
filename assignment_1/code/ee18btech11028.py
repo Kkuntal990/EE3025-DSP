@@ -157,10 +157,10 @@ plt.savefig('../figs/Y.eps')
 # To test the time statistics
 #WARNING: Make sure to use this only in an interactive python environment 
 
-x = np.random.random(128)
-%timeit DTFT(x)
-%timeit FFT(x)
+# x = np.random.random(128)
+# %timeit DTFT(x)
+# %timeit FFT(x)
 
-x = np.random.random(2048)
-%timeit DTFT(x)
-%timeit FFT(x)
+# x = np.random.random(2048)
+# %timeit DTFT(x)
+# %timeit FFT(x)
