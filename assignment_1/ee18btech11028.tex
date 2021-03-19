@@ -328,6 +328,7 @@ Y(0) \\ Y(1) \\ Y(2) \\ Y(3) \\ Y(4) \\ Y(5)
 \item
 \begin{align}
     y(n) \triangleq (W_{N}^{nk})^{*} Y(k), \quad n=0,1, \ldots, N-1
+    \label{eq:eq3}
 \end{align}
 where $(W_{N}^{nk})^{*}$ is conjugate of $W_{N}^{nk}$ from \eqref{eq:eq2}.
 
@@ -345,8 +346,11 @@ y(0) \\ y(1) \\ y(2) \\ y(3) \\ y(4) \\ y(5)
 Properties :
 \begin{enumerate}
     \item symmetry property : \[ W^{k+N/2}_{N} = - W^{k}_{N} \] 
-    \item Periodicity property :  \[ W^{k+N}_{N} =  W^{k}_{N} \] 
+    \label{p:p1}
+    \item Periodicity property :  \[ W^{k+N}_{N} =  W^{k}_{N} \]     
+    \label{p:p2}
     \item \[ W^{2}_{N} =  W_{N/2} \] 
+    \label{p:p3}
 \end{enumerate}
 \item 
 Using properties to derive FFT from DFT :
@@ -390,6 +394,203 @@ using property c, we get,
     \\ $\mathcal{O}(n^2)$ to $\mathcal{O}(n\log{}n)$ 
 \end{itemize}
 
+\item
+
+Taking an example of 8-point function,
+\begin{align}
+    x(n) = \cbrak{\underset{\uparrow}{1},2,3,4,2,1,0,0} 
+\end{align}
+
+We know that from \ref{eq:eq2},
+\begin{align}
+        X(k) \triangleq W_{N}^{nk} x(n), \quad k=0,1, \ldots, N-1
+\end{align}
+
+\begin{equation}
+\renewcommand{\arraystretch}{1.35}
+\setlength\arraycolsep{0.05pt}
+\begin{bmatrix}
+X(0) \\
+X(1) \\
+X(2) \\
+X(3) \\
+X(4) \\
+X(5) \\
+X(6) \\
+X(7)
+\end{bmatrix}
+=
+\begin{bmatrix}
+W^{0}_{8} & W^{0}_{8} & W^{0}_{8} & W^{0}_{8} & W^{0}_{8} & W^{0}_{8} & W^{0}_{8} & W^{0}_{8}\\
+W^{0}_{8} & W^{1}_{8} & W^{2}_{8} & W^{3}_{8} & W^{4}_{8} & W^{5}_{8} & W^{6}_{8} & W^{7}_{8}\\
+W^{0}_{8} & W^{2}_{8} & W^{4}_{8} & W^{6}_{8} & W^{8}_{8} & W^{10}_{8} & W^{12}_{8} & W^{14}_{8}\\
+W^{0}_{8} & W^{3}_{8} & W^{6}_{8} & W^{9}_{8} & W^{12}_{8} & W^{15}_{8} & W^{18}_{8} & W^{21}_{8}\\
+W^{0}_{8} & W^{4}_{8} & W^{8}_{8} & W^{12}_{8} & W^{16}_{8} & W^{20}_{8} & W^{24}_{8} & W^{28}_{8}\\
+W^{0}_{8} & W^{5}_{8} & W^{10}_{8} & W^{15}_{8} & W^{20}_{8} & W^{25}_{8} & W^{30}_{8} & W^{35}_{8}\\
+W^{0}_{8} & W^{6}_{8} & W^{12}_{8} & W^{18}_{8} & W^{24}_{8} & W^{30}_{8} & W^{36}_{8} & W^{42}_{8}\\
+W^{0}_{8} & W^{7}_{8} & W^{14}_{8} & W^{21}_{8} & W^{28}_{8} & W^{35}_{8} & W^{42}_{8} & W^{49}_{8}
+\end{bmatrix}
+\begin{bmatrix}
+x(0) \\
+x(1) \\
+x(2) \\
+x(3) \\
+x(4) \\
+x(5) \\
+x(6) \\
+x(7)
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+\implies
+\begin{bmatrix}
+X(0) \\
+X(1) \\
+X(2) \\
+X(3) \\
+X(4) \\
+X(5) \\
+X(6) \\
+X(7)
+\end{bmatrix}
+=
+\begin{bmatrix}
+13 \\
+-3.121 - 6.535j \\
+1j \\
+1.121 - 0.535j \\
+-1 \\
+1.121 + 0.535j \\
+-1j \\
+-3.121 + 6.535j
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+\renewcommand{\arraystretch}{1.35}
+\setlength\arraycolsep{0.05pt}
+\begin{bmatrix}
+H(0) \\
+H(1) \\
+H(2) \\
+H(3) \\
+H(4) \\
+H(5) \\
+H(6) \\
+H(7)
+\end{bmatrix}
+=
+\begin{bmatrix}
+W^{0}_{8} & W^{0}_{8} & W^{0}_{8} & W^{0}_{8} & W^{0}_{8} & W^{0}_{8} & W^{0}_{8} & W^{0}_{8}\\
+W^{0}_{8} & W^{1}_{8} & W^{2}_{8} & W^{3}_{8} & W^{4}_{8} & W^{5}_{8} & W^{6}_{8} & W^{7}_{8}\\
+W^{0}_{8} & W^{2}_{8} & W^{4}_{8} & W^{6}_{8} & W^{8}_{8} & W^{10}_{8} & W^{12}_{8} & W^{14}_{8}\\
+W^{0}_{8} & W^{3}_{8} & W^{6}_{8} & W^{9}_{8} & W^{12}_{8} & W^{15}_{8} & W^{18}_{8} & W^{21}_{8}\\
+W^{0}_{8} & W^{4}_{8} & W^{8}_{8} & W^{12}_{8} & W^{16}_{8} & W^{20}_{8} & W^{24}_{8} & W^{28}_{8}\\
+W^{0}_{8} & W^{5}_{8} & W^{10}_{8} & W^{15}_{8} & W^{20}_{8} & W^{25}_{8} & W^{30}_{8} & W^{35}_{8}\\
+W^{0}_{8} & W^{6}_{8} & W^{12}_{8} & W^{18}_{8} & W^{24}_{8} & W^{30}_{8} & W^{36}_{8} & W^{42}_{8}\\
+W^{0}_{8} & W^{7}_{8} & W^{14}_{8} & W^{21}_{8} & W^{28}_{8} & W^{35}_{8} & W^{42}_{8} & W^{49}_{8}
+\end{bmatrix}
+\begin{bmatrix}
+1 \\
+-0.5 \\
+1.25 \\
+-0.65 \\
+0.3125 \\
+-0.15625 \\
+0.078125 \\
+-0.0390625
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+\implies
+\begin{bmatrix}
+H(0) \\
+H(1) \\
+H(2) \\
+H(3) \\
+H(4) \\
+H(5) \\
+H(6) \\
+H(7)
+\end{bmatrix}
+=
+\begin{bmatrix}
+1.32 \\
+0.858 - 0.514j \\
+-0.015-0.007j \\
+0.516 +1.829j \\
+3.96 \\
+0.516 - 1.829j \\
+-0.015+0.007j  \\
+0.858 + 0.514j
+\end{bmatrix}
+\end{equation}
+So,
+\begin{equation}
+\begin{bmatrix} 
+Y(0) \\ Y(1) \\ Y(2) \\ Y(3) \\ Y(4) \\ Y(5) \\ Y(6) \\ Y(7) 
+\end{bmatrix}
+=
+\begin{bmatrix}
+X(0)\cdot H(0) \\ X(1)\cdot H(1) \\ X(2)\cdot H(2) \\ X(3)\cdot H(3) \\ X(4)\cdot H(4) \\ X(5)\cdot H(5) \\ X(6)\cdot H(6) \\ X(7)\cdot H(7)
+\end{bmatrix}
+\end{equation}
+
+Solving,
+
+\begin{equation}
+\implies
+\begin{bmatrix}
+Y(0) \\
+Y(1) \\
+Y(2) \\
+Y(3) \\
+Y(4) \\
+Y(5) \\
+Y(6) \\
+Y(7)
+\end{bmatrix}
+=
+\begin{bmatrix}
+17.16 \\
+-6.04 - 4j \\
+-0.007-0.015j \\
+1.55 +1.77j \\
+-3.96 \\
+1.55 -1.77j\\
+0.007+0.015j  \\
+-6.04 + 4j
+\end{bmatrix}
+\end{equation}
+
+From \ref{eq:eq3}
+
+\begin{equation}
+\implies
+\begin{bmatrix}
+y(0) \\
+y(1) \\
+y(2) \\
+y(3) \\
+y(4) \\
+y(5) \\
+y(6) \\
+y(7)
+\end{bmatrix}
+=
+\begin{bmatrix}
+0.53125 \\
+1.69 \\
+3.09 \\
+4.375 \\
+2.773\\
+3.593\\
+0.203\\
+0.8984
+\end{bmatrix}
+\end{equation}
 
 \end{enumerate}
 \end{document}
